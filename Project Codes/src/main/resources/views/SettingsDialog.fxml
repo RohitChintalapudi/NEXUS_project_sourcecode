@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexus.controller.SettingsDialogController"
+      styleClass="nexus-card" prefWidth="640" prefHeight="540" spacing="16"
+      style="-fx-background-color: -color-bg-panel; -fx-border-color: -color-border-medium; -fx-border-width: 1px;">
+
+    <!-- Dialog Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="NEXUS Workspace Settings" styleClass="view-title" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="btnClose" text="✕" styleClass="btn-icon" onAction="#handleClose" />
+    </HBox>
+
+    <Separator style="-fx-opacity: 0.2;" />
+
+    <TabPane styleClass="api-tab-pane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <!-- Tab 1: Themes & Colors -->
+        <Tab text="Themes">
+            <VBox spacing="16" style="-fx-padding: 16px;">
+                <VBox spacing="6">
+                    <Label text="WORKSPACE THEME COMBINATIONS" style="-fx-font-size: 11px; -fx-font-weight: 900; -fx-text-fill: -color-text-muted;" />
+                    <ComboBox fx:id="themeSelector" prefWidth="460" styleClass="btn-secondary" />
+                    <Label fx:id="lblThemeDescription" text="Signature Matte Black &amp; Gold Yellow theme with high-contrast developer typography." style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted; -fx-font-style: italic;" />
+                </VBox>
+
+                <!-- Color Swatch Palette Preview -->
+                <VBox spacing="8" style="-fx-background-color: -color-bg-base; -fx-padding: 12px; -fx-background-radius: 8px; -fx-border-color: -color-border-subtle; -fx-border-radius: 8px;">
+                    <Label text="THEME PALETTE PREVIEW" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <HBox fx:id="swatchBg" prefWidth="80" prefHeight="28" alignment="CENTER" style="-fx-background-radius: 4px; -fx-border-color: #3f3f46; -fx-border-radius: 4px;">
+                            <Label text="Base" style="-fx-font-size: 10px; -fx-text-fill: #ffffff;" />
+                        </HBox>
+                        <HBox fx:id="swatchCard" prefWidth="80" prefHeight="28" alignment="CENTER" style="-fx-background-radius: 4px; -fx-border-color: #3f3f46; -fx-border-radius: 4px;">
+                            <Label text="Card" style="-fx-font-size: 10px; -fx-text-fill: #ffffff;" />
+                        </HBox>
+                        <HBox fx:id="swatchAccent" prefWidth="110" prefHeight="28" alignment="CENTER" style="-fx-background-radius: 4px;">
+                            <Label fx:id="lblAccentText" text="Accent" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: #000000;" />
+                        </HBox>
+                        <HBox fx:id="swatchSecondary" prefWidth="110" prefHeight="28" alignment="CENTER" style="-fx-background-radius: 4px;">
+                            <Label fx:id="lblSecondaryText" text="Secondary" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: #ffffff;" />
+                        </HBox>
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="TERMINAL &amp; CODE MONOSPACE FONT" style="-fx-font-size: 11px; -fx-font-weight: 900; -fx-text-fill: -color-text-muted;" />
+                    <ComboBox fx:id="fontSelector" prefWidth="460" styleClass="btn-secondary" />
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="UI ACCENT GLOW EFFECTS" style="-fx-font-size: 11px; -fx-font-weight: 900; -fx-text-fill: -color-text-muted;" />
+                    <CheckBox fx:id="chkGlowEffects" text="Enable subtle neon drop-shadows on active navigation and badges" selected="true" style="-fx-text-fill: -color-text-secondary;" />
+                </VBox>
+            </VBox>
+        </Tab>
+
+        <!-- Tab 2: Terminal -->
+        <Tab text="Terminal">
+            <VBox spacing="16" style="-fx-padding: 16px;">
+                <VBox spacing="6">
+                    <Label text="BLOCK RENDER STYLE" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                    <RadioButton text="Warp-style Self-Contained Isolated Blocks (Recommended)" selected="true" style="-fx-text-fill: -color-text-secondary;" />
+                    <RadioButton text="Continuous Streaming Buffer" style="-fx-text-fill: -color-text-secondary;" />
+                </VBox>
+
+                <VBox spacing="6">
+                    <Label text="SCROLL &amp; BUFFER" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                    <CheckBox text="Auto-scroll to latest execution block on command submit" selected="true" style="-fx-text-fill: -color-text-secondary;" />
+                    <CheckBox text="Enable copy-on-click for output cards" selected="true" style="-fx-text-fill: -color-text-secondary;" />
+                </VBox>
+            </VBox>
+        </Tab>
+
+        <!-- Tab 3: About -->
+        <Tab text="About NEXUS">
+            <VBox spacing="14" style="-fx-padding: 20px;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="NEXUS" styleClass="brand-title" style="-fx-font-size: 24px;" />
+                    <Label text="v1.0.0-alpha" styleClass="brand-stage-pill" />
+                </HBox>
+                <Label text="AI-Powered Developer Workspace" styleClass="brand-subtitle" style="-fx-font-size: 14px;" />
+                <Label text="Stage 1: Foundation, Architecture &amp; Complete Desktop UI Implementation" style="-fx-font-size: 12px; -fx-text-fill: -color-accent-cyan; -fx-font-weight: bold;" />
+                <Separator style="-fx-opacity: 0.15;" />
+                <Label text="Built on Java 21+ SE, JavaFX Controls &amp; FXML, Maven modular build lifecycle, with future stage hooks for AI reasoning engines and PostgreSQL persistence."
+                       wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: -color-text-secondary; -fx-line-spacing: 2px;" />
+            </VBox>
+        </Tab>
+    </TabPane>
+
+    <!-- Footer -->
+    <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 8px 0 0 0;">
+        <Button text="Done" styleClass="btn-primary" onAction="#handleClose" />
+    </HBox>
+
+</VBox>
+

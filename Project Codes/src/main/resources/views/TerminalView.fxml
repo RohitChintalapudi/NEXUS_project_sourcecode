@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexus.controller.TerminalController"
+      styleClass="terminal-container" VBox.vgrow="ALWAYS">
+
+    <!-- Terminal Session Tabs & Controls Toolbar -->
+    <HBox styleClass="terminal-toolbar" alignment="CENTER_LEFT" spacing="10">
+        <!-- Dynamic Tabs Container -->
+        <HBox fx:id="tabsContainer" alignment="CENTER_LEFT" spacing="6" styleClass="terminal-tab-bar" />
+
+        <!-- Add New Tab with Shell Selection -->
+        <MenuButton fx:id="btnNewSessionMenu" text="+" styleClass="btn-icon">
+            <items>
+                <MenuItem fx:id="menuItemPowerShell" text="New PowerShell Session" onAction="#handleNewPowerShellSession" />
+                <MenuItem fx:id="menuItemCmd" text="New Command Prompt Session" onAction="#handleNewCmdSession" />
+                <MenuItem fx:id="menuItemBash" text="New Bash / Unix Session" onAction="#handleNewBashSession" />
+            </items>
+        </MenuButton>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <!-- Status & Management Actions -->
+        <HBox alignment="CENTER_RIGHT" spacing="8">
+            <!-- Active Shell Pill -->
+            <Label fx:id="lblActiveShell" text="PowerShell"
+                   style="-fx-background-color: rgba(168,85,247,0.15); -fx-text-fill: -color-accent-purple; -fx-border-color: rgba(168,85,247,0.4); -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-padding: 3px 8px; -fx-font-size: 11px; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold;" />
+
+            <!-- Execution State Badge -->
+            <Label fx:id="lblExecutionState" text="IDLE"
+                   style="-fx-background-color: rgba(16,185,129,0.15); -fx-text-fill: -color-accent-emerald; -fx-border-color: rgba(16,185,129,0.4); -fx-border-radius: 4px; -fx-background-radius: 4px; -fx-padding: 3px 8px; -fx-font-size: 11px; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold;" />
+
+            <!-- Font Zoom Controls -->
+            <HBox alignment="CENTER_LEFT" spacing="3" style="-fx-background-color: -color-bg-card; -fx-border-color: -color-border-subtle; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 2px 4px;">
+                <Button fx:id="btnFontDecrease" text="A−" styleClass="block-action-btn" onAction="#handleFontDecrease" />
+                <Label fx:id="lblFontSize" text="12px" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                <Button fx:id="btnFontIncrease" text="A+" styleClass="block-action-btn" onAction="#handleFontIncrease" />
+            </HBox>
+
+            <Button fx:id="btnCancelProcess" text="Cancel (Ctrl+C)" styleClass="btn-secondary" style="-fx-text-fill: -color-accent-rose;" onAction="#handleCancelProcess" />
+            <Button fx:id="btnRestartSession" text="Restart" styleClass="btn-secondary" onAction="#handleRestartSession" />
+            <Button fx:id="btnClearTerminal" text="Clear" styleClass="btn-secondary" onAction="#handleClearTerminal" />
+            <Button fx:id="btnToggleExpand" text="Expand" styleClass="btn-secondary" onAction="#handleToggleExpandWorkspace" />
+        </HBox>
+    </HBox>
+
+    <!-- Terminal Command Blocks Scroll Area -->
+    <ScrollPane fx:id="terminalScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane" style="-fx-background-color: -color-bg-terminal;">
+        <VBox fx:id="commandBlocksContainer" spacing="12" style="-fx-padding: 16px 20px;">
+            <!-- Live CommandBlockView nodes appended as real commands complete -->
+        </VBox>
+    </ScrollPane>
+
+    <!-- Live Output Bar if Running -->
+    <HBox fx:id="runningIndicatorBar" visible="false" managed="false" alignment="CENTER_LEFT" spacing="10"
+          style="-fx-background-color: #121215; -fx-padding: 6px 16px; -fx-border-color: -color-border-subtle transparent transparent transparent; -fx-border-width: 1 0 0 0;">
+        <ProgressIndicator prefWidth="14" prefHeight="14" />
+        <Label fx:id="lblRunningCommandText" text="Executing command in live process..."
+               style="-fx-text-fill: -color-accent-amber; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 11px; -fx-font-weight: bold;" />
+    </HBox>
+
+    <!-- Terminal Interactive Prompt Input Bar -->
+    <HBox styleClass="terminal-input-bar" spacing="10" alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="6" styleClass="terminal-prompt-pill">
+            <Label fx:id="lblPromptShellTag" text="ps>" style="-fx-text-fill: -color-accent-gold; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+            <Label fx:id="lblPromptDir" text="~/project/NEXUS" style="-fx-text-fill: -color-accent-gold; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold;" />
+            <Label fx:id="lblPromptBranch" text="(main*)" style="-fx-text-fill: -color-accent-purple; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold;" />
+        </HBox>
+
+        <TextField fx:id="commandInput" promptText="Enter operating system command (e.g. 'java -version', 'mvn -version', 'dir', 'cd ..')..."
+                   HBox.hgrow="ALWAYS" styleClass="terminal-input-field" onAction="#handleExecuteCommand" />
+
+        <Button fx:id="btnRun" text="Run ⏎" styleClass="btn-primary" onAction="#handleExecuteCommand" />
+        <Button fx:id="btnAskAi" text="Nexus AI ⚡" styleClass="btn-secondary" onAction="#handleAskAiFromInput" />
+    </HBox>
+
+</VBox>

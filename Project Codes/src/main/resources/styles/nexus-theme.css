@@ -1,0 +1,1477 @@
+/* ==========================================================================
+   NEXUS THEME — PREMIER AI DEVELOPER WORKSPACE STYLESHEET
+   Matte Black & Gold Yellow Theme with Vibrant Multi-Color Functional Badges
+   Bold Typography, Crisp Contrast & Deep Hardware Acceleration
+   ========================================================================== */
+
+.root {
+    /* Matte Black & Charcoal Foundations */
+    -color-bg-base: #09090b;
+    -color-bg-sidebar: #0d0d10;
+    -color-bg-panel: #121215;
+    -color-bg-card: #18181c;
+    -color-bg-card-hover: #222228;
+    -color-bg-input: #101013;
+    -color-bg-terminal: #070709;
+
+    /* Zinc & Gold Borders */
+    -color-border-subtle: #27272a;
+    -color-border-medium: #3f3f46;
+    -color-border-glow: #f59e0b;
+
+    /* Brand Primary: Cyber Gold & Terminal Yellow */
+    -color-accent-gold: #fbbf24;
+    -color-accent-amber: #f59e0b;
+    -color-accent-yellow: #facc15;
+    -color-brand-primary: #f59e0b;
+
+    /* Colorful Preserved Module Accents */
+    -color-accent-emerald: #10b981;
+    -color-accent-purple: #a855f7;
+    -color-accent-violet: #8b5cf6;
+    -color-accent-cyan: #06b6d4;
+    -color-accent-blue: #38bdf8;
+    -color-accent-rose: #f43f5e;
+
+    /* High-contrast Crisp Typography */
+    -color-text-primary: #fbfbfb;
+    -color-text-secondary: #d4d4d8;
+    -color-text-muted: #a1a1aa;
+
+    /* Global JavaFX Focus Color — Replace Default Modena Blue with Solid Yellow */
+    -fx-focus-color: #fbbf24;
+    -fx-faint-focus: rgba(251, 191, 36, 0.25);
+
+    -fx-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-background-color: -color-bg-base;
+    -fx-text-fill: -color-text-primary;
+}
+
+/* ==========================================================================
+   GLOBAL TYPOGRAPHY ENHANCEMENT — UNIVERSAL BOLD TEXT
+   ========================================================================== */
+.label {
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text-primary;
+}
+
+.button {
+    -fx-font-weight: bold;
+}
+
+.text-field, .text-area {
+    -fx-font-weight: bold;
+}
+
+.tab .tab-label {
+    -fx-font-weight: bold;
+}
+
+/* ==========================================================================
+   GLOBAL SCROLLBAR & SCROLLPANE
+   ========================================================================== */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 8px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #27272a;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #f59e0b;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* ==========================================================================
+   SPLIT PANE
+   ========================================================================== */
+.split-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-background-color: -color-border-subtle;
+    -fx-padding: 0 1px 0 1px;
+}
+
+/* ==========================================================================
+   TOP APPLICATION BAR / HEADER
+   ========================================================================== */
+.app-header {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8px 16px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.global-search-container {
+    -fx-background-color: -color-bg-card;
+    -fx-background-radius: 8px;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 4px 10px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.global-search-container:hover {
+    -fx-border-color: -color-accent-amber;
+}
+
+.global-search-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-primary;
+    -fx-prompt-text-fill: -color-text-muted;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: bold;
+    -fx-padding: 2px 6px;
+}
+
+.global-search-shortcut {
+    -fx-background-color: #121215;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-background-radius: 4px;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 4px;
+    -fx-padding: 2px 6px;
+}
+
+/* ==========================================================================
+   SIDEBAR NAVIGATION
+   ========================================================================== */
+.sidebar {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent -color-border-subtle transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-pref-width: 250px;
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+}
+
+.brand-container {
+    -fx-padding: 16px 18px 14px 18px;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.logo-glow {
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.4), 14, 0.25, 0, 0);
+}
+
+.brand-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -color-text-primary;
+    -fx-letter-spacing: 1.5px;
+}
+
+.brand-subtitle {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-accent-gold;
+    -fx-letter-spacing: 0.5px;
+}
+
+.brand-stage-pill {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+    -fx-border-color: rgba(245, 158, 11, 0.4);
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 2px 8px;
+    -fx-text-fill: #fbbf24;
+    -fx-font-size: 9px;
+    -fx-font-weight: 800;
+}
+
+.nav-section-title {
+    -fx-text-fill: -color-text-muted;
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 1.2px;
+    -fx-padding: 12px 16px 4px 16px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: -color-text-primary;
+}
+
+.nav-button-active {
+    -fx-background-color: linear-gradient(to right, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.05));
+    -fx-border-color: transparent transparent transparent -color-accent-amber;
+    -fx-border-width: 0 0 0 3px;
+    -fx-border-radius: 0 8px 8px 0;
+    -fx-background-radius: 0 8px 8px 0;
+    -fx-text-fill: -color-accent-gold;
+    -fx-font-weight: 800;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.25), 10, 0.15, 0, 0);
+}
+
+.nav-button-active .text {
+    -fx-text-fill: #fbbf24;
+    -fx-font-weight: 800;
+}
+
+.sidebar-footer {
+    -fx-border-color: -color-border-subtle transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 12px 14px;
+}
+
+/* ==========================================================================
+   WORKSPACE MAIN AREA
+   ========================================================================== */
+.workspace-area {
+    -fx-background-color: -color-bg-base;
+}
+
+.workspace-header {
+    -fx-padding: 16px 24px;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: -color-bg-base;
+}
+
+.view-title {
+    -fx-font-size: 21px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text-primary;
+}
+
+.view-subtitle {
+    -fx-font-size: 12.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text-secondary;
+}
+
+/* ==========================================================================
+   HOME SCREEN COMPONENTS
+   ========================================================================== */
+.hero-banner {
+    -fx-background-color: linear-gradient(to bottom right, #141418, #101013, #18181e);
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+    -fx-padding: 24px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 18, 0.1, 0, 4);
+}
+
+.hero-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -color-text-primary;
+}
+
+.hero-desc {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text-secondary;
+    -fx-line-spacing: 3px;
+}
+
+.hero-badge-row {
+    -fx-spacing: 8px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.section-heading {
+    -fx-font-size: 15px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text-primary;
+}
+
+/* Quick Action Cards */
+.quick-action-card {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 12px 14px;
+    -fx-cursor: hand;
+    -fx-min-width: 140px;
+}
+
+.quick-action-card:hover {
+    -fx-background-color: -color-bg-card-hover;
+    -fx-translate-y: -3px;
+}
+
+.quick-card-terminal:hover {
+    -fx-border-color: #fbbf24;
+    -fx-effect: dropshadow(gaussian, rgba(251, 191, 36, 0.35), 14, 0.1, 0, 3);
+}
+
+.quick-card-repo:hover {
+    -fx-border-color: #a855f7;
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 247, 0.35), 14, 0.1, 0, 3);
+}
+
+.quick-card-api:hover {
+    -fx-border-color: #10b981;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.35), 14, 0.1, 0, 3);
+}
+
+.quick-card-analytics:hover {
+    -fx-border-color: #f59e0b;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.35), 14, 0.1, 0, 3);
+}
+
+.action-card-shortcut {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-border-color: rgba(255, 255, 255, 0.16);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px 6px;
+    -fx-font-size: 10px;
+    -fx-font-family: 'JetBrains Mono', Consolas, monospace;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-weight: 800;
+}
+
+.telemetry-progress-cyan .track,
+.telemetry-progress-purple .track,
+.telemetry-progress-emerald .track {
+    -fx-background-color: #121215;
+    -fx-background-radius: 4px;
+}
+
+.telemetry-progress-cyan .bar {
+    -fx-background-color: linear-gradient(to right, #0284c7, #06b6d4);
+    -fx-background-radius: 4px;
+    -fx-padding: 3px;
+}
+
+.telemetry-progress-purple .bar {
+    -fx-background-color: linear-gradient(to right, #7c3aed, #a855f7);
+    -fx-background-radius: 4px;
+    -fx-padding: 3px;
+}
+
+.telemetry-progress-emerald .bar {
+    -fx-background-color: linear-gradient(to right, #059669, #10b981);
+    -fx-background-radius: 4px;
+    -fx-padding: 3px;
+}
+
+.action-card-icon-container {
+    -fx-background-color: rgba(245, 158, 11, 0.12);
+    -fx-border-color: rgba(245, 158, 11, 0.28);
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-pref-width: 32px;
+    -fx-pref-height: 32px;
+    -fx-min-width: 32px;
+    -fx-min-height: 32px;
+    -fx-alignment: CENTER;
+}
+
+.action-card-title {
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -color-text-primary;
+}
+
+.action-card-desc {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text-secondary;
+    -fx-wrap-text: true;
+    -fx-line-spacing: 1px;
+}
+
+/* Workspace Overview Cards */
+.nexus-card {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px;
+}
+
+.project-overview-grid {
+    -fx-hgap: 12px;
+    -fx-vgap: 12px;
+}
+
+.overview-stat-tile {
+    -fx-background-color: -color-bg-panel;
+    -fx-background-radius: 8px;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 8px;
+    -fx-padding: 12px;
+}
+
+.overview-stat-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-text-muted;
+    -fx-font-weight: 800;
+}
+
+.overview-stat-value {
+    -fx-font-size: 16px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text-primary;
+}
+
+/* Activity item */
+.activity-item {
+    -fx-background-color: -color-bg-panel;
+    -fx-background-radius: 8px;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 14px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.activity-item:hover {
+    -fx-background-color: -color-bg-card-hover;
+}
+
+/* ==========================================================================
+   TERMINAL WORKSPACE (WARP-INSPIRED)
+   ========================================================================== */
+.terminal-container {
+    -fx-background-color: -color-bg-terminal;
+}
+
+.terminal-toolbar {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 6px 14px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.terminal-tab-bar {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.terminal-tab-pill {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-padding: 6px 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.terminal-tab-pill:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: -color-text-primary;
+}
+
+.terminal-tab-pill-active {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-text-fill: -color-accent-gold;
+    -fx-font-weight: 800;
+}
+
+/* Command Block Card */
+.terminal-command-block {
+    -fx-background-color: -color-bg-panel;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0, 0, 2);
+}
+
+.terminal-command-block:hover {
+    -fx-border-color: -color-border-medium;
+}
+
+.command-block-header {
+    -fx-background-color: #141417;
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.command-block-dir {
+    -fx-text-fill: #fbbf24;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.command-block-branch {
+    -fx-text-fill: #a855f7;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.command-block-command {
+    -fx-text-fill: #fbfbfb;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: 800;
+}
+
+.command-block-meta {
+    -fx-text-fill: -color-text-muted;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.block-action-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-secondary;
+    -fx-padding: 3px 6px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.block-action-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-text-fill: -color-text-primary;
+}
+
+.block-ai-btn {
+    -fx-text-fill: #fbbf24;
+    -fx-border-color: rgba(245, 158, 11, 0.35);
+    -fx-border-radius: 4px;
+}
+
+.block-ai-btn:hover {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+}
+
+.command-block-output {
+    -fx-background-color: -color-bg-terminal;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0 0 10px 10px;
+    -fx-border-width: 0;
+}
+
+.command-block-output .content {
+    -fx-background-color: -color-bg-terminal;
+    -fx-background-radius: 0 0 10px 10px;
+    -fx-padding: 10px 14px;
+}
+
+/* Terminal Input Bar */
+.terminal-input-bar {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: -color-border-subtle transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 10px 16px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.terminal-prompt-pill {
+    -fx-background-color: #141417;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 4px 8px;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-accent-gold;
+}
+
+.terminal-input-field {
+    -fx-background-color: -color-bg-input;
+    -fx-border-color: -color-border-medium;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #fbfbfb;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 12px;
+}
+
+.terminal-input-field:focused {
+    -fx-border-color: -color-accent-amber;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.35), 8, 0.15, 0, 0);
+}
+
+/* ==========================================================================
+   REPOSGRAPH (REPOSITORY VISUALIZATION)
+   ========================================================================== */
+.repograph-container {
+    -fx-background-color: -color-bg-base;
+}
+
+.repograph-toolbar {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8px 16px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.repograph-canvas-scroll {
+    -fx-background-color: #070709;
+}
+
+.commit-card-node {
+    -fx-background-color: #141417;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 12px 16px;
+    -fx-cursor: hand;
+}
+
+.commit-card-node:hover {
+    -fx-background-color: #1e1e23;
+    -fx-border-color: -color-accent-amber;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0.1, 0, 2);
+}
+
+.commit-card-node-selected {
+    -fx-background-color: #202026;
+    -fx-border-color: -color-accent-gold;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(251, 191, 36, 0.45), 14, 0.2, 0, 0);
+}
+
+.commit-hash-pill {
+    -fx-background-color: #101013;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-accent-gold;
+    -fx-padding: 2px 6px;
+}
+
+.repograph-inspector {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent transparent transparent -color-border-subtle;
+    -fx-border-width: 0 0 0 1;
+    -fx-padding: 16px;
+    -fx-pref-width: 330px;
+    -fx-min-width: 300px;
+}
+
+/* ==========================================================================
+   API STUDIO
+   ========================================================================== */
+.api-studio-container {
+    -fx-background-color: -color-bg-base;
+}
+
+.api-request-bar {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10px 18px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.api-method-combo {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-pref-width: 105px;
+}
+
+.api-method-combo .list-cell {
+    -fx-text-fill: -color-text-primary;
+    -fx-font-weight: 800;
+    -fx-font-size: 12px;
+}
+
+.api-url-field {
+    -fx-background-color: -color-bg-input;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #fbfbfb;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 12px;
+}
+
+.api-url-field:focused {
+    -fx-border-color: -color-accent-amber;
+}
+
+.api-tab-pane {
+    -fx-tab-min-height: 32px;
+    -fx-tab-max-height: 32px;
+}
+
+.api-tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 12px;
+}
+
+.api-tab-pane .tab-header-background {
+    -fx-background-color: -color-bg-sidebar;
+}
+
+.api-tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px 6px 0 0;
+    -fx-padding: 4px 14px;
+}
+
+.api-tab-pane .tab:selected {
+    -fx-background-color: -color-bg-panel;
+    -fx-border-color: transparent transparent -color-accent-gold transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+.api-tab-pane .tab .tab-label {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 12px;
+    -fx-font-weight: 800;
+}
+
+.api-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -color-accent-gold;
+}
+
+/* ==========================================================================
+   TAB PANE FOCUS INDICATOR & OUTLINE — SOLID YELLOW INSTEAD OF BLUE
+   ========================================================================== */
+.tab-pane .tab .focus-indicator,
+.api-tab-pane .tab .focus-indicator {
+    -fx-border-color: transparent;
+    -fx-border-radius: 4px;
+}
+
+.tab-pane .tab:focused .focus-indicator,
+.tab-pane:focused .tab:selected .focus-indicator,
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator,
+.tab-pane:focused > .tab-header-area > .headers-region > .tab .focus-indicator,
+.api-tab-pane .tab:focused .focus-indicator,
+.api-tab-pane:focused .tab:selected .focus-indicator,
+.api-tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator,
+.api-tab-pane:focused > .tab-header-area > .headers-region > .tab .focus-indicator {
+    -fx-border-color: #fbbf24;
+    -fx-border-width: 1.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+
+.code-editor-area {
+    -fx-background-color: -color-bg-input;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 10px;
+    -fx-font-weight: 500;
+    -fx-line-spacing: 1px;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.code-editor-area .content {
+    -fx-background-color: -color-bg-input;
+    -fx-padding: 6px 8px;
+}
+
+/* ==========================================================================
+   LISTVIEW & TREEVIEW DARK THEME
+   ========================================================================== */
+.list-view,
+.list-view:focused,
+.list-view.code-editor-area,
+.list-view.code-editor-area:focused {
+    -fx-background-color: #101013;
+    -fx-control-inner-background: #101013;
+    -fx-control-inner-background-alt: #0d0d10;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.list-view .virtual-flow,
+.list-view .virtual-flow .clipped-container,
+.list-view .virtual-flow .clipped-container .sheet {
+    -fx-background-color: #101013;
+}
+
+.list-view .virtual-flow .clipped-container .sheet .list-cell {
+    -fx-background-color: #101013;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 10px;
+    -fx-border-color: transparent;
+}
+
+.list-cell {
+    -fx-background-color: #101013;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 10px;
+}
+
+.list-cell:empty {
+    -fx-background-color: #101013;
+    -fx-border-color: transparent;
+    -fx-text-fill: transparent;
+}
+
+.list-cell:empty:odd,
+.list-cell:empty:even {
+    -fx-background-color: #101013;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #0d0d10;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-weight: bold;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: #131316;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-weight: bold;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(245, 158, 11, 0.12);
+    -fx-text-fill: #fbbf24;
+    -fx-cursor: hand;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: rgba(245, 158, 11, 0.22);
+    -fx-text-fill: #fbfbfb;
+    -fx-border-color: #f59e0b;
+    -fx-border-width: 0 0 0 3px;
+}
+
+.tree-view,
+.tree-view:focused {
+    -fx-background-color: #101013;
+    -fx-control-inner-background: #101013;
+    -fx-control-inner-background-alt: #0d0d10;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.tree-view .virtual-flow,
+.tree-view .virtual-flow .clipped-container,
+.tree-view .virtual-flow .clipped-container .sheet {
+    -fx-background-color: #101013;
+}
+
+.tree-cell {
+    -fx-background-color: #101013;
+    -fx-text-fill: #e4e4e7;
+    -fx-padding: 4px 8px;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: bold;
+}
+
+.tree-cell:empty {
+    -fx-background-color: #101013;
+    -fx-border-color: transparent;
+    -fx-text-fill: transparent;
+}
+
+.tree-cell:empty:odd,
+.tree-cell:empty:even {
+    -fx-background-color: #101013;
+}
+
+.tree-cell:filled:odd {
+    -fx-background-color: #0d0d10;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-weight: bold;
+}
+
+.tree-cell:filled:even {
+    -fx-background-color: #131316;
+    -fx-text-fill: #e4e4e7;
+    -fx-font-weight: bold;
+}
+
+.tree-cell:filled:hover {
+    -fx-background-color: rgba(245, 158, 11, 0.12);
+    -fx-text-fill: #fbbf24;
+    -fx-cursor: hand;
+}
+
+.tree-cell:filled:selected {
+    -fx-background-color: rgba(245, 158, 11, 0.22);
+    -fx-text-fill: #fbfbfb;
+    -fx-border-color: #f59e0b;
+    -fx-border-width: 0 0 0 3px;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow {
+    -fx-background-color: #a1a1aa;
+}
+
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: #fbbf24;
+}
+
+/* Repograph Project Explorer Panel */
+.repograph-tree-container {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent -color-border-subtle transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 12px;
+    -fx-min-width: 240px;
+    -fx-pref-width: 290px;
+}
+
+.section-heading-sm {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text-muted;
+    -fx-letter-spacing: 0.8px;
+}
+
+.project-folder-badge {
+    -fx-background-color: #141417;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 10px;
+}
+
+.btn-secondary-xs {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-padding: 3px 8px;
+    -fx-cursor: hand;
+}
+
+.btn-secondary-xs:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-text-fill: -color-text-primary;
+    -fx-border-color: -color-accent-amber;
+}
+
+/* ==========================================================================
+   COMMAND HISTORY & ANALYTICS
+   ========================================================================== */
+.history-container {
+    -fx-background-color: -color-bg-base;
+}
+
+.stat-card-analytics {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px 20px;
+    -fx-pref-width: 220px;
+}
+
+.analytics-stat-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -color-text-primary;
+}
+
+.analytics-stat-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-weight: 800;
+}
+
+.analytics-stat-change {
+    -fx-font-size: 11px;
+    -fx-text-fill: -color-accent-emerald;
+    -fx-font-weight: 800;
+}
+
+/* TableView Styling */
+.table-view,
+.table-view:focused {
+    -fx-background-color: #101013;
+    -fx-control-inner-background: #101013;
+    -fx-control-inner-background-alt: #0d0d10;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.table-view .column-header-background,
+.table-view .column-header-background .filler,
+.table-view .filler,
+.table-view .show-hide-columns-button {
+    -fx-background-color: #141417;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent -color-border-subtle transparent transparent;
+    -fx-padding: 8px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.table-row-cell {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 4px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #131316;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: -color-bg-card-hover;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgba(245, 158, 11, 0.2);
+}
+
+.table-cell {
+    -fx-text-fill: -color-text-primary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* ==========================================================================
+   AI ASSISTANT PANEL (RIGHT SIDEBAR)
+   ========================================================================== */
+.ai-panel {
+    -fx-background-color: -color-bg-sidebar;
+    -fx-border-color: transparent transparent transparent -color-border-subtle;
+    -fx-border-width: 0 0 0 1;
+}
+
+.ai-panel-header {
+    -fx-padding: 14px 16px;
+    -fx-border-color: transparent transparent -color-border-subtle transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.ai-panel-title {
+    -fx-font-size: 14.5px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text-primary;
+}
+
+.ai-status-dot {
+    -fx-fill: #fbbf24;
+    -fx-effect: dropshadow(gaussian, rgba(251, 191, 36, 0.7), 6, 0.2, 0, 0);
+}
+
+.ai-status-text {
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #fbbf24;
+    -fx-letter-spacing: 0.5px;
+}
+
+.prompt-chip {
+    -fx-background-color: -color-bg-panel;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 5px 11px;
+    -fx-text-fill: -color-text-secondary;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.prompt-chip:hover {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+    -fx-border-color: -color-accent-amber;
+    -fx-text-fill: -color-accent-gold;
+}
+
+/* Chat Messages */
+.chat-bubble-user {
+    -fx-background-color: #242429;
+    -fx-border-color: rgba(245, 158, 11, 0.4);
+    -fx-border-radius: 10px 10px 2px 10px;
+    -fx-background-radius: 10px 10px 2px 10px;
+    -fx-padding: 10px 14px;
+}
+
+.chat-bubble-assistant {
+    -fx-background-color: #141417;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 10px 10px 10px 2px;
+    -fx-background-radius: 10px 10px 10px 2px;
+    -fx-padding: 10px 14px;
+}
+
+.chat-bubble-system {
+    -fx-background-color: rgba(245, 158, 11, 0.08);
+    -fx-border-color: rgba(245, 158, 11, 0.3);
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+}
+
+.chat-code-snippet {
+    -fx-background-color: -color-bg-terminal;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+    -fx-font-size: 11.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fbbf24;
+    -fx-padding: 8px 10px;
+}
+
+.chat-input-container {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 6px 10px;
+}
+
+.chat-input-container:focused {
+    -fx-border-color: -color-accent-amber;
+}
+
+.chat-text-area {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text-primary;
+    -fx-prompt-text-fill: -color-text-muted;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: bold;
+    -fx-padding: 0;
+}
+
+.chat-text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* ==========================================================================
+   BOTTOM SYSTEM ANALYTICS BAR
+   ========================================================================== */
+.bottom-analytics-bar {
+    -fx-background-color: #070709;
+    -fx-border-color: -color-border-subtle transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 6px 16px;
+    -fx-pref-height: 32px;
+    -fx-min-height: 32px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.bottom-divider {
+    -fx-background-color: -color-border-subtle;
+    -fx-pref-width: 1px;
+    -fx-pref-height: 14px;
+}
+
+.telemetry-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text-muted;
+}
+
+.telemetry-value {
+    -fx-font-size: 11px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -color-text-primary;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+}
+
+.telemetry-badge-simulated {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+    -fx-border-color: rgba(245, 158, 11, 0.4);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 1px 6px;
+    -fx-text-fill: #fbbf24;
+    -fx-font-size: 9px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 0.5px;
+}
+
+.telemetry-progress-bar {
+    -fx-background-color: #17171b;
+    -fx-background-radius: 3px;
+    -fx-padding: 0;
+}
+
+.telemetry-progress-bar .track {
+    -fx-background-color: #17171b;
+    -fx-background-radius: 3px;
+}
+
+.telemetry-progress-bar .bar {
+    -fx-background-color: -color-accent-gold;
+    -fx-background-radius: 3px;
+}
+
+.bar-purple .bar {
+    -fx-background-color: -color-accent-purple;
+}
+
+.bar-emerald .bar {
+    -fx-background-color: -color-accent-emerald;
+}
+
+/* ==========================================================================
+   BUTTONS & BADGES
+   ========================================================================== */
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #d97706, #f59e0b, #fbbf24);
+    -fx-text-fill: #09090b;
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+    -fx-padding: 7px 16px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.4), 10, 0.2, 0, 1);
+}
+
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to right, #f59e0b, #fbbf24, #facc15);
+    -fx-effect: dropshadow(gaussian, rgba(251, 191, 36, 0.6), 14, 0.3, 0, 2);
+}
+
+.btn-secondary {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: -color-border-subtle;
+    -fx-text-fill: -color-text-primary;
+    -fx-font-weight: bold;
+    -fx-padding: 7px 14px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: -color-bg-card-hover;
+    -fx-border-color: -color-border-medium;
+}
+
+.btn-icon {
+    -fx-background-color: transparent;
+    -fx-padding: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-icon:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Colorful Module Action Buttons */
+.btn-emerald {
+    -fx-background-color: linear-gradient(to right, #059669, #10b981);
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-padding: 7px 16px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-emerald:hover {
+    -fx-background-color: linear-gradient(to right, #10b981, #34d399);
+}
+
+.btn-purple {
+    -fx-background-color: linear-gradient(to right, #7c3aed, #a855f7);
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-padding: 7px 16px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-purple:hover {
+    -fx-background-color: linear-gradient(to right, #8b5cf6, #c084fc);
+}
+
+.btn-cyan {
+    -fx-background-color: linear-gradient(to right, #0284c7, #06b6d4);
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-padding: 7px 16px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-cyan:hover {
+    -fx-background-color: linear-gradient(to right, #06b6d4, #22d3ee);
+}
+
+.btn-rose {
+    -fx-background-color: linear-gradient(to right, #e11d48, #f43f5e);
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-padding: 7px 16px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-rose:hover {
+    -fx-background-color: linear-gradient(to right, #f43f5e, #fb7185);
+}
+
+/* Badges */
+.nexus-badge {
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-padding: 2px 7px;
+}
+
+.badge-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-font-family: "JetBrains Mono", Consolas, monospace;
+}
+
+.badge-primary {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+    -fx-border-color: rgba(245, 158, 11, 0.4);
+}
+.badge-primary .badge-label {
+    -fx-text-fill: #fbbf24;
+}
+
+.badge-secondary {
+    -fx-background-color: rgba(168, 85, 247, 0.15);
+    -fx-border-color: rgba(168, 85, 247, 0.4);
+}
+.badge-secondary .badge-label {
+    -fx-text-fill: #c084fc;
+}
+
+.badge-success {
+    -fx-background-color: rgba(16, 185, 129, 0.15);
+    -fx-border-color: rgba(16, 185, 129, 0.4);
+}
+.badge-success .badge-label {
+    -fx-text-fill: #34d399;
+}
+
+.badge-warning {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+    -fx-border-color: rgba(245, 158, 11, 0.4);
+}
+.badge-warning .badge-label {
+    -fx-text-fill: #fbbf24;
+}
+
+.badge-danger {
+    -fx-background-color: rgba(244, 63, 94, 0.15);
+    -fx-border-color: rgba(244, 63, 94, 0.4);
+}
+.badge-danger .badge-label {
+    -fx-text-fill: #fb7185;
+}
+
+.badge-info {
+    -fx-background-color: rgba(59, 130, 246, 0.15);
+    -fx-border-color: rgba(59, 130, 246, 0.4);
+}
+.badge-info .badge-label {
+    -fx-text-fill: #60a5fa;
+}
+
+.badge-muted {
+    -fx-background-color: rgba(148, 163, 184, 0.12);
+    -fx-border-color: rgba(148, 163, 184, 0.25);
+}
+.badge-muted .badge-label {
+    -fx-text-fill: #94a3b8;
+}
+
+/* ==========================================================================
+   NEXUS AI BUTTON GLOW & TOGGLE STATES
+   ========================================================================== */
+.btn-nexus-ai-active {
+    -fx-background-color: linear-gradient(to right, #d97706, #f59e0b, #fbbf24);
+    -fx-text-fill: #09090b;
+    -fx-font-weight: 900;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.65), 16, 0.35, 0, 0);
+}
+
+.btn-nexus-ai-inactive {
+    -fx-background-color: -color-bg-card;
+    -fx-border-color: rgba(245, 158, 11, 0.4);
+    -fx-text-fill: #fbbf24;
+    -fx-font-weight: 800;
+}
+
+.btn-nexus-ai-inactive:hover {
+    -fx-background-color: rgba(245, 158, 11, 0.15);
+    -fx-border-color: #f59e0b;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.4), 12, 0.25, 0, 0);
+}

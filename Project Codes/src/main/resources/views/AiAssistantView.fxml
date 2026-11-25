@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexus.controller.AiAssistantController"
+      styleClass="ai-panel" prefWidth="380.0" minWidth="0.0" maxWidth="450.0" VBox.vgrow="ALWAYS">
+
+    <!-- AI Panel Header -->
+    <HBox styleClass="ai-panel-header" spacing="10" alignment="CENTER_LEFT">
+        <StackPane fx:id="aiHeaderIconContainer" />
+        <VBox spacing="1">
+            <Label text="Nexus AI" styleClass="ai-panel-title" />
+            <HBox spacing="6" alignment="CENTER_LEFT">
+                <Circle radius="3.5" styleClass="ai-status-dot" style="-fx-fill: #fbbf24;" />
+                <Label text="ONLINE // ENGINE ACTIVE" styleClass="ai-status-text" style="-fx-text-fill: #fbbf24; -fx-font-weight: 800;" />
+            </HBox>
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <Button fx:id="btnClearChat" text="Reset" minWidth="-Infinity" styleClass="block-action-btn" onAction="#handleClearChat" />
+        <Button fx:id="btnCollapsePanel" styleClass="btn-icon" onAction="#handleToggleCollapse" />
+    </HBox>
+
+    <!-- Context Indicator Pill -->
+    <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 6px 14px; -fx-background-color: -color-bg-base; -fx-border-color: transparent transparent -color-border-subtle transparent; -fx-border-width: 0 0 1 0;">
+        <Label text="Workspace Context:" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+        <Label fx:id="lblActiveContext" text="~/project/NEXUS (main)" style="-fx-font-size: 11px; -fx-text-fill: #fbbf24; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold;" />
+    </HBox>
+
+    <!-- Task Status Indicator (Active when AI is executing multi-step tools) -->
+    <HBox fx:id="taskStatusBar" alignment="CENTER_LEFT" spacing="8" visible="false" managed="false"
+          style="-fx-padding: 6px 14px; -fx-background-color: rgba(245, 158, 11, 0.12); -fx-border-color: rgba(245, 158, 11, 0.3); -fx-border-width: 0 0 1 0;">
+        <ProgressIndicator prefWidth="12" prefHeight="12" style="-fx-progress-color: #fbbf24;" />
+        <Label fx:id="lblTaskStatus" text="Analyzing request..."
+               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #fbbf24; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+    </HBox>
+
+    <!-- Quick Prompt Suggestion Chips -->
+    <VBox spacing="6" style="-fx-padding: 8px 14px; -fx-border-color: transparent transparent -color-border-subtle transparent; -fx-border-width: 0 0 1 0;">
+        <Label text="SUGGESTED PROMPTS" style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted; -fx-letter-spacing: 0.5px;" />
+        <FlowPane hgap="6" vgap="6">
+            <Button text="🔍 Find all Java projects" styleClass="prompt-chip" onAction="#handlePromptFindProjects" />
+            <Button text="📁 Where is my NoteHub project?" styleClass="prompt-chip" onAction="#handlePromptFindNoteHub" />
+            <Button text="🛠 Inspect pom.xml &amp; structure" styleClass="prompt-chip" onAction="#handlePromptInspectPom" />
+            <Button text="⚡ Run tests (Approval)" styleClass="prompt-chip" onAction="#handlePromptRunTests" />
+        </FlowPane>
+    </VBox>
+
+    <!-- Chat Messages Scroll Area -->
+    <ScrollPane fx:id="chatScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane" style="-fx-background-color: -color-bg-sidebar;">
+        <VBox fx:id="messagesContainer" spacing="12" style="-fx-padding: 14px 16px;">
+            <!-- Chat bubble nodes dynamically appended -->
+        </VBox>
+    </ScrollPane>
+
+    <!-- AI Input Area -->
+    <VBox spacing="8" style="-fx-padding: 12px 14px; -fx-border-color: -color-border-subtle transparent transparent transparent; -fx-border-width: 1 0 0 0; -fx-background-color: -color-bg-sidebar;">
+        <HBox styleClass="chat-input-container" alignment="CENTER_LEFT" spacing="8">
+            <TextField fx:id="chatInput" promptText="Ask Nexus AI about code, commands, or architecture..."
+                       HBox.hgrow="ALWAYS" styleClass="chat-text-area" onAction="#handleSendMessage" />
+            <Button fx:id="btnSendChat" styleClass="btn-icon" onAction="#handleSendMessage" />
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="6">
+            <Label text="LangChain4j Engine &amp; Tool-Calling Active"
+                   style="-fx-font-size: 10px; -fx-text-fill: -color-accent-emerald; -fx-font-weight: 800;" />
+        </HBox>
+    </VBox>
+
+</VBox>
+

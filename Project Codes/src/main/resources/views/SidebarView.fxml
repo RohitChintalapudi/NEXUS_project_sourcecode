@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexus.controller.SidebarController"
+      styleClass="sidebar" prefWidth="250.0" minWidth="250.0" maxWidth="250.0">
+
+    <!-- Logo & Brand Header -->
+    <VBox styleClass="brand-container" spacing="6">
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <StackPane fx:id="logoContainer" styleClass="logo-glow" prefWidth="32" prefHeight="32" />
+            <VBox spacing="1">
+                <HBox alignment="CENTER_LEFT" spacing="6">
+                    <Label text="NEXUS" styleClass="brand-title" />
+                    <Label text="COCKPIT" styleClass="brand-stage-pill" />
+                </HBox>
+                <Label text="AI Developer Workspace" styleClass="brand-subtitle" />
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Navigation Section -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+        <VBox spacing="4" style="-fx-padding: 12px 10px;">
+            <Label text="WORKSPACE" styleClass="nav-section-title" />
+
+            <!-- Nav Item 1: Home -->
+            <Button fx:id="navHome" text="Home" maxWidth="Infinity" styleClass="nav-button" onAction="#handleNavHome" />
+
+            <!-- Nav Item 2: Terminal -->
+            <Button fx:id="navTerminal" text="NEXUS Terminal" maxWidth="Infinity" styleClass="nav-button" onAction="#handleNavTerminal" />
+
+            <!-- Nav Item 3: RepoGraph -->
+            <Button fx:id="navRepoGraph" text="RepoGraph" maxWidth="Infinity" styleClass="nav-button" onAction="#handleNavRepoGraph" />
+
+            <!-- Nav Item 4: API Studio -->
+            <Button fx:id="navApiStudio" text="API Studio" maxWidth="Infinity" styleClass="nav-button" onAction="#handleNavApiStudio" />
+
+            <!-- Nav Item 5: Command History & Analytics -->
+            <Button fx:id="navHistory" text="History &amp; Analytics" maxWidth="Infinity" styleClass="nav-button" onAction="#handleNavHistory" />
+
+            <Region prefHeight="16" />
+            <Label text="TERMINAL &amp; TELEMETRY" styleClass="nav-section-title" />
+
+            <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-padding: 6px 12px; -fx-background-color: rgba(255,255,255,0.03); -fx-background-radius: 6px;">
+                <Label text="Cockpit Status:" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                <Label text="Online &amp; Synced" style="-fx-font-size: 11px; -fx-text-fill: -color-accent-emerald; -fx-font-weight: bold;" />
+            </HBox>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Sidebar Footer / Settings -->
+    <VBox styleClass="sidebar-footer" spacing="8">
+        <Button fx:id="navSettings" text="Settings" maxWidth="Infinity" styleClass="nav-button" onAction="#handleOpenSettings" />
+    </VBox>
+
+</VBox>
+

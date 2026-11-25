@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexus.controller.RepoGraphController"
+      styleClass="repograph-container" VBox.vgrow="ALWAYS">
+
+    <!-- RepoGraph Toolbar -->
+    <!-- RepoGraph 2-Tier Spacious Toolbar: Never Truncated -->
+    <VBox styleClass="repograph-toolbar" spacing="8" style="-fx-padding: 10px 16px;">
+        <!-- Row 1: Project & Branch Actions -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <!-- Project Folder Picker -->
+            <Button fx:id="btnBrowseFolder" text="Select Project 📁" styleClass="btn-primary" minWidth="-Infinity" onAction="#handleBrowseFolder" />
+
+            <HBox alignment="CENTER_LEFT" spacing="6" styleClass="project-folder-badge" minWidth="-Infinity">
+                <Label text="REPO:" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                <Label fx:id="lblSelectedFolderPath" text="NEXUS" style="-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-fill: -color-accent-gold; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+            </HBox>
+
+            <Separator orientation="VERTICAL" style="-fx-opacity: 0.25;" />
+
+            <!-- Branch Selector & Checkout -->
+            <HBox alignment="CENTER_LEFT" spacing="6" minWidth="-Infinity">
+                <Label text="Branch:" style="-fx-text-fill: -color-text-secondary; -fx-font-size: 11.5px; -fx-font-weight: 800;" />
+                <ComboBox fx:id="branchSelector" prefWidth="140" minWidth="130" styleClass="btn-secondary" />
+                <Button fx:id="btnCheckoutBranch" text="Checkout" styleClass="btn-secondary-xs" minWidth="-Infinity" onAction="#handleCheckoutBranch" />
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="btnRefreshRepo" text="↻ Refresh" styleClass="btn-primary" minWidth="-Infinity" onAction="#handleRefreshRepo" />
+        </HBox>
+
+        <!-- Row 2: View Modes, Search Filter & Zoom Controls -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <!-- View Mode Switcher -->
+            <HBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: -color-bg-panel; -fx-padding: 2px 4px; -fx-background-radius: 6px; -fx-border-color: -color-border-subtle; -fx-border-radius: 6px;" minWidth="-Infinity">
+                <Button fx:id="btnViewTree" text="🌳 Tree Explorer" styleClass="btn-secondary-xs" minWidth="-Infinity" onAction="#handleShowTreeMode" />
+                <Button fx:id="btnViewCommits" text="🔗 Commit Chain" styleClass="btn-secondary-xs" minWidth="-Infinity" onAction="#handleShowCommitsMode" />
+            </HBox>
+
+            <!-- Filter Input -->
+            <TextField fx:id="searchCommitInput" promptText="Filter files or commits..." HBox.hgrow="ALWAYS" maxWidth="340" styleClass="terminal-input-field" style="-fx-font-size: 11.5px;" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Zoom & Actions -->
+            <HBox alignment="CENTER_RIGHT" spacing="6" minWidth="-Infinity">
+                <Label text="Zoom:" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                <Button fx:id="btnZoomOut" text="−" styleClass="btn-secondary" minWidth="30" onAction="#handleZoomOut" />
+                <Label fx:id="lblZoomLevel" text="100%" style="-fx-text-fill: -color-text-muted; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 11px; -fx-font-weight: 800;" minWidth="42" alignment="CENTER" />
+                <Button fx:id="btnZoomIn" text="+" styleClass="btn-secondary" minWidth="30" onAction="#handleZoomIn" />
+                <Button fx:id="btnResetZoom" text="Reset" styleClass="btn-secondary" minWidth="-Infinity" onAction="#handleResetZoom" />
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Main Workspace 3-Way Split: Explorer Sidebar | Visual Canvas | Inspector -->
+    <SplitPane fx:id="mainSplitPane" dividerPositions="0.22, 0.70" VBox.vgrow="ALWAYS" styleClass="split-pane">
+
+        <!-- 1. LEFT PANE: Project Explorer File Tree -->
+        <VBox fx:id="projectTreeContainer" styleClass="repograph-tree-container" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="PROJECT EXPLORER" styleClass="section-heading-sm" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnCollapseAll" text="−" styleClass="btn-icon" onAction="#handleCollapseAll" />
+                <Button fx:id="btnExpandAll" text="+" styleClass="btn-icon" onAction="#handleExpandAll" />
+                <Button fx:id="btnRefreshTree" text="↻" styleClass="btn-icon" onAction="#handleRefreshTree" />
+            </HBox>
+
+            <!-- Project Card -->
+            <HBox alignment="CENTER_LEFT" spacing="6" styleClass="project-folder-badge">
+                <Label text="📁" style="-fx-font-size: 12px;" />
+                <Label fx:id="lblCurrentProjectName" text="NEXUS" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-accent-cyan;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="Change" styleClass="btn-secondary-xs" onAction="#handleBrowseFolder" />
+            </HBox>
+
+            <!-- Tree Filter Field -->
+            <TextField fx:id="treeFilterInput" promptText="Filter project files..." styleClass="terminal-input-field" style="-fx-font-size: 11px;" />
+
+            <!-- TreeView -->
+            <TreeView fx:id="projectTreeView" VBox.vgrow="ALWAYS" styleClass="tree-view" showRoot="true" />
+
+            <!-- Status Footer -->
+            <HBox alignment="CENTER_LEFT" spacing="6">
+                <Label fx:id="lblTreeStats" text="Ready" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblGitBranchBadge" text="main" style="-fx-background-color: rgba(168,85,247,0.15); -fx-text-fill: #c084fc; -fx-font-size: 9px; -fx-padding: 1px 6px; -fx-background-radius: 4px; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+            </HBox>
+        </VBox>
+
+        <!-- 2. CENTER PANE: Horizontal Interactive Canvas Area -->
+        <ScrollPane fx:id="graphScrollPane" fitToHeight="true" fitToWidth="false" styleClass="repograph-canvas-scroll">
+            <VBox fx:id="graphCanvasContainer" spacing="14" style="-fx-padding: 20px;">
+                <!-- Canvas Header -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="lblCanvasTitle" text="HORIZONTAL REPOSITORY TREE" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted; -fx-letter-spacing: 1px;" />
+                    <Label fx:id="lblRepoStatus" text="● LIVE JGIT REPOSITORY" style="-fx-font-size: 10px; -fx-text-fill: #10b981; -fx-font-weight: bold;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="lblActiveRepoPath" text="" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                </HBox>
+
+                <!-- Dynamic Content Container (Horizontal Tree or Topology Graph) -->
+                <StackPane fx:id="canvasStackPane" VBox.vgrow="ALWAYS" alignment="TOP_LEFT">
+                    <!-- View A: Horizontal Repo Tree -->
+                    <VBox fx:id="horizontalTreeWrapper" spacing="12">
+                        <!-- Instantiated HorizontalRepoTreeView inserted here dynamically -->
+                    </VBox>
+
+                    <!-- View B: Vertical Commit Timeline Container -->
+                    <VBox fx:id="horizontalNodesContainer" spacing="10" alignment="TOP_LEFT" style="-fx-padding: 16px 12px;" maxWidth="Infinity" visible="false" managed="false">
+                        <!-- Dynamically populated vertical commit timeline cards -->
+                    </VBox>
+                </StackPane>
+
+                <!-- Legend Bar -->
+                <HBox spacing="14" alignment="CENTER_LEFT" style="-fx-padding: 10px 14px; -fx-background-color: -color-bg-card; -fx-background-radius: 8px;">
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #fbbf24;" />
+                        <Label text="main / root" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-secondary;" />
+                    </HBox>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #a855f7;" />
+                        <Label text="Feature / Fix" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-secondary;" />
+                    </HBox>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #10b981;" />
+                        <Label text="Modified / Active" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-secondary;" />
+                    </HBox>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="Click any commit in timeline to inspect diff and changed files" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted; -fx-font-style: italic; -fx-font-weight: bold;" />
+                </HBox>
+            </VBox>
+        </ScrollPane>
+
+        <!-- 3. RIGHT PANE: Multi-Tab Inspector & File Previewer -->
+        <VBox fx:id="inspectorContainer" styleClass="repograph-inspector" spacing="10">
+            <TabPane fx:id="inspectorTabPane" styleClass="api-tab-pane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+                <!-- Tab 1: File Previewer -->
+                <Tab fx:id="tabFilePreview" text="File Preview">
+                    <VBox spacing="10" style="-fx-padding: 10px;" VBox.vgrow="ALWAYS">
+                        <!-- File Meta Header -->
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label fx:id="lblFileIcon" text="📄" style="-fx-font-size: 18px;" />
+                            <VBox spacing="2">
+                                <Label fx:id="lblFileName" text="Select a file to preview" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: -color-text-primary;" />
+                                <Label fx:id="lblFileType" text="No file selected" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted;" />
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button fx:id="btnCopyFileContent" text="Copy" styleClass="block-action-btn" onAction="#handleCopyFileContent" />
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label fx:id="lblFileSize" text="0 B" style="-fx-font-size: 10px; -fx-text-fill: -color-text-secondary; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                            <Label text="•" style="-fx-text-fill: -color-text-muted;" />
+                            <Label fx:id="lblFileLineCount" text="0 lines" style="-fx-font-size: 10px; -fx-text-fill: -color-text-secondary; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblFileGitStatusBadge" text="UNTRACKED" visible="false" style="-fx-background-color: rgba(245,158,11,0.18); -fx-text-fill: #fbbf24; -fx-font-size: 9px; -fx-padding: 1px 5px; -fx-background-radius: 3px; -fx-font-weight: bold;" />
+                        </HBox>
+
+                        <!-- Code Content Editor Area (Shrunk text for maximum code visibility) -->
+                        <TextArea fx:id="filePreviewArea" editable="false" styleClass="code-editor-area" VBox.vgrow="ALWAYS" wrapText="false" style="-fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 10px; -fx-line-spacing: 1px;" />
+
+                        <!-- Bottom File Actions -->
+                        <HBox spacing="8">
+                            <Button fx:id="btnExplainFileAi" text="Explain with Nexus AI ⚡" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-primary" onAction="#handleExplainFileAi" />
+                            <Button fx:id="btnOpenFileTerminal" text="Terminal 💻" styleClass="btn-secondary" onAction="#handleOpenFileInTerminal" />
+                        </HBox>
+                    </VBox>
+                </Tab>
+
+                <!-- Tab 2: Commit Inspector -->
+                <Tab fx:id="tabCommitInspector" text="Commit Inspector">
+                    <VBox spacing="10" style="-fx-padding: 10px;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label fx:id="lblInspectorHash" text="HEAD" styleClass="commit-hash-pill" />
+                            <Label fx:id="lblInspectorBranch" text="main" styleClass="brand-stage-pill" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button fx:id="btnCopySha" text="Copy SHA" styleClass="block-action-btn" onAction="#handleCopySha" />
+                        </HBox>
+
+                        <VBox spacing="3">
+                            <Label text="COMMIT MESSAGE" style="-fx-font-size: 9px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                            <Label fx:id="lblInspectorMessage" text="No commit selected" style="-fx-font-size: 12px; -fx-font-weight: 800; -fx-text-fill: -color-text-primary;" wrapText="true" maxWidth="Infinity" />
+                        </VBox>
+
+                        <HBox spacing="14">
+                            <VBox spacing="2">
+                                <Label text="AUTHOR" style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                                <Label fx:id="lblInspectorAuthor" text="-" style="-fx-font-size: 11px; -fx-text-fill: -color-text-secondary;" />
+                            </VBox>
+                            <VBox spacing="2">
+                                <Label text="DATE" style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                                <Label fx:id="lblInspectorDate" text="-" style="-fx-font-size: 11px; -fx-text-fill: -color-text-secondary;" />
+                            </VBox>
+                        </HBox>
+
+                        <Separator style="-fx-opacity: 0.15;" />
+
+                        <!-- Changed Files List -->
+                        <VBox spacing="6" VBox.vgrow="ALWAYS">
+                            <Label text="CHANGED FILES" style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                            <ListView fx:id="changedFilesList" VBox.vgrow="ALWAYS" styleClass="code-editor-area" style="-fx-font-size: 11px; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </VBox>
+
+                        <HBox spacing="8">
+                            <Button fx:id="btnViewDiff" text="View Commit Diff" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-secondary" onAction="#handleViewCommitDiff" />
+                            <Button fx:id="btnExplainCommitAi" text="Explain Diff ⚡" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="btn-primary" onAction="#handleExplainCommitAi" />
+                        </HBox>
+                    </VBox>
+                </Tab>
+
+                <!-- Tab 3: Git Status & Working Tree Changes -->
+                <Tab fx:id="tabGitStatus" text="Git Status">
+                    <VBox spacing="10" style="-fx-padding: 10px;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="WORKING TREE CHANGES" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button text="↻ Refresh" styleClass="btn-secondary-xs" onAction="#handleRefreshGitStatus" />
+                        </HBox>
+
+                        <VBox spacing="6" VBox.vgrow="ALWAYS">
+                            <Label fx:id="lblModifiedCount" text="Modified (0)" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #fbbf24;" />
+                            <ListView fx:id="modifiedFilesList" prefHeight="100" styleClass="code-editor-area" />
+
+                            <Label fx:id="lblStagedCount" text="Staged (0)" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #34d399;" />
+                            <ListView fx:id="stagedFilesList" prefHeight="80" styleClass="code-editor-area" />
+
+                            <Label fx:id="lblUntrackedCount" text="Untracked (0)" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #94a3b8;" />
+                            <ListView fx:id="untrackedFilesList" prefHeight="80" styleClass="code-editor-area" />
+                        </VBox>
+
+                        <Button fx:id="btnExplainChangesAi" text="Explain Git Changes with AI ⚡" maxWidth="Infinity" styleClass="btn-primary" onAction="#handleExplainChangesAi" />
+                    </VBox>
+                </Tab>
+
+            </TabPane>
+        </VBox>
+
+    </SplitPane>
+
+</VBox>

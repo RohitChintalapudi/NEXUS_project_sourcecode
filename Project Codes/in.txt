@@ -1,0 +1,3 @@
+echo hello
+echo [NEXUS_BOUNDARY:PWD=%CD%^|EXIT=%ERRORLEVEL%]
+exit

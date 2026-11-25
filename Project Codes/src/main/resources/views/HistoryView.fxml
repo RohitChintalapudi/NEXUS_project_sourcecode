@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.nexus.controller.HistoryController"
+            fitToWidth="true" styleClass="scroll-pane history-container">
+
+    <VBox spacing="20" style="-fx-padding: 24px 30px;">
+
+        <!-- Header -->
+        <VBox spacing="4">
+            <Label text="Command History &amp; Workspace Analytics" styleClass="view-title" />
+            <Label text="Review real command execution telemetry, analyze build latency trends, and inspect command records." styleClass="view-subtitle" />
+        </VBox>
+
+        <!-- Live Analytics Overview Cards -->
+        <FlowPane hgap="16" vgap="16">
+            <!-- Metric 1: Total Executions -->
+            <VBox styleClass="stat-card-analytics" spacing="8">
+                <Label text="TOTAL COMMANDS" styleClass="analytics-stat-label" />
+                <Label fx:id="lblTotalCommands" text="0" styleClass="analytics-stat-value" />
+                <Label fx:id="lblCommandsStatus" text="Persistent storage synced" styleClass="analytics-stat-change" />
+            </VBox>
+
+            <!-- Metric 2: Success Rate -->
+            <VBox styleClass="stat-card-analytics" spacing="8">
+                <Label text="SUCCESS RATE" styleClass="analytics-stat-label" />
+                <Label fx:id="lblSuccessRate" text="100%" styleClass="analytics-stat-value" style="-fx-text-fill: -color-accent-emerald;" />
+                <Label fx:id="lblSuccessCounts" text="0 Succeeded · 0 Failed" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted;" />
+            </VBox>
+
+            <!-- Metric 3: Avg Duration -->
+            <VBox styleClass="stat-card-analytics" spacing="8">
+                <Label text="AVG EXECUTION TIME" styleClass="analytics-stat-label" />
+                <Label fx:id="lblAvgDuration" text="0 ms" styleClass="analytics-stat-value" style="-fx-text-fill: -color-accent-gold;" />
+                <Label fx:id="lblFastestExecution" text="Measured across live sessions" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted;" />
+            </VBox>
+
+            <!-- Metric 4: Top Tool -->
+            <VBox styleClass="stat-card-analytics" spacing="8">
+                <Label text="TOP ORCHESTRATION TOOL" styleClass="analytics-stat-label" />
+                <Label fx:id="lblTopTool" text="system" styleClass="analytics-stat-value" style="-fx-text-fill: -color-accent-purple;" />
+                <Label fx:id="lblTopToolShare" text="Most frequent command category" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted;" />
+            </VBox>
+        </FlowPane>
+
+        <!-- Tool Usage Distribution Bar -->
+        <VBox styleClass="nexus-card" spacing="10">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="Live Tool Execution Distribution" styleClass="section-heading" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblSampleTotal" text="Persistent telemetry" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted;" />
+            </HBox>
+
+            <!-- Dynamic Distribution container -->
+            <HBox fx:id="distributionBarContainer" spacing="3" prefHeight="12">
+                <Region HBox.hgrow="ALWAYS" style="-fx-background-color: #fbbf24; -fx-background-radius: 4px;" />
+            </HBox>
+
+            <HBox fx:id="distributionLegendContainer" spacing="20" alignment="CENTER_LEFT">
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #a855f7;" />
+                    <Label text="Maven" style="-fx-font-size: 11px; -fx-text-fill: -color-text-secondary;" />
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #00d4ff;" />
+                    <Label text="Git" style="-fx-font-size: 11px; -fx-text-fill: -color-text-secondary;" />
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #38bdf8;" />
+                    <Label text="Docker" style="-fx-font-size: 11px; -fx-text-fill: -color-text-secondary;" />
+                </HBox>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Region style="-fx-pref-width: 8px; -fx-pref-height: 8px; -fx-background-radius: 4px; -fx-background-color: #10b981;" />
+                    <Label text="System / Others" style="-fx-font-size: 11px; -fx-text-fill: -color-text-secondary;" />
+                </HBox>
+            </HBox>
+        </VBox>
+
+        <!-- Command History Table Section -->
+        <VBox styleClass="nexus-card" spacing="12">
+            <!-- Table Toolbar Filter -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="Execution Log" styleClass="section-heading" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <ComboBox fx:id="filterToolCombo" prefWidth="130" styleClass="btn-secondary" />
+                <TextField fx:id="searchHistoryField" promptText="Filter by command or path..." prefWidth="280" styleClass="terminal-input-field" />
+                <Button fx:id="btnClearHistory" text="Clear Log" styleClass="block-action-btn" onAction="#handleClearHistory" />
+            </HBox>
+
+            <!-- Table -->
+            <TableView fx:id="historyTable" prefHeight="380" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="colTimestamp" text="Timestamp" prefWidth="160" />
+                    <TableColumn fx:id="colCommand" text="Command Line" prefWidth="320" />
+                    <TableColumn fx:id="colTool" text="Tool" prefWidth="100" />
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="100" />
+                    <TableColumn fx:id="colDuration" text="Duration" prefWidth="100" />
+                    <TableColumn fx:id="colDirectory" text="Directory" prefWidth="220" />
+                </columns>
+            </TableView>
+        </VBox>
+
+    </VBox>
+</ScrollPane>

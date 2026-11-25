@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.nexus.controller.HomeController"
+            fitToWidth="true" styleClass="scroll-pane workspace-area">
+
+    <VBox spacing="24" style="-fx-padding: 24px 32px;">
+
+        <!-- Hero Welcome Cockpit Banner -->
+        <VBox styleClass="hero-banner" spacing="14">
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <StackPane fx:id="heroIconContainer" styleClass="logo-glow" prefWidth="46" prefHeight="46" />
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Welcome to NEXUS" styleClass="hero-title" />
+                        <Label text="AI DEVELOPER WORKSPACE" styleClass="brand-stage-pill" />
+                    </HBox>
+                    <Label text="Next-generation intelligent developer cockpit designed for rapid local build orchestration, visual git topology, interactive API testing, and AI-accelerated workflows."
+                           styleClass="hero-desc" wrapText="true" maxWidth="860" />
+                </VBox>
+                <HBox alignment="CENTER_RIGHT" spacing="8" style="-fx-background-color: rgba(16,185,129,0.12); -fx-border-color: rgba(16,185,129,0.3); -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-padding: 4px 12px;">
+                    <Region style="-fx-pref-width: 7px; -fx-pref-height: 7px; -fx-background-radius: 4px; -fx-background-color: #10b981;" />
+                    <Label text="STAGE 4 COCKPIT ONLINE" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #10b981; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                </HBox>
+            </HBox>
+
+            <!-- Live Environment Badges -->
+            <HBox styleClass="hero-badge-row" spacing="10">
+                <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-background-color: rgba(0,212,255,0.08); -fx-border-color: rgba(0,212,255,0.25); -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 5px 12px;">
+                    <Label text="📁 Workspace:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                    <Label fx:id="lblHeroWorkspace" text="~/project/NEXUS" style="-fx-text-fill: -color-accent-cyan; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold; -fx-font-size: 11px;" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-background-color: rgba(168,85,247,0.08); -fx-border-color: rgba(168,85,247,0.25); -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 5px 12px;">
+                    <Label text="🌿 Branch:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                    <Label fx:id="lblHeroBranch" text="main (synced)" style="-fx-text-fill: -color-accent-purple; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold; -fx-font-size: 11px;" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-background-color: rgba(16,185,129,0.08); -fx-border-color: rgba(16,185,129,0.25); -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 5px 12px;">
+                    <Label text="☕ JDK:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                    <Label fx:id="lblHeroJdk" text="Java 21 SE" style="-fx-text-fill: -color-accent-emerald; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold; -fx-font-size: 11px;" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-background-color: rgba(245,158,11,0.08); -fx-border-color: rgba(245,158,11,0.25); -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 5px 12px;">
+                    <Label text="💻 Shell:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                    <Label fx:id="lblHeroShell" text="PowerShell" style="-fx-text-fill: -color-accent-amber; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold; -fx-font-size: 11px;" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-background-color: rgba(56,189,248,0.08); -fx-border-color: rgba(56,189,248,0.25); -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 5px 12px;">
+                    <Label text="✨ AI:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                    <Label fx:id="lblHeroAi" text="Groq LLaMA 3.3" style="-fx-text-fill: #38bdf8; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold; -fx-font-size: 11px;" />
+                </HBox>
+            </HBox>
+        </VBox>
+
+        <!-- Quick Action Cards Section: Exactly One Line, Never Wrapped -->
+        <VBox spacing="14">
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="QUICK ACTIONS" styleClass="section-heading" />
+                <Label text="• 1-CLICK LAUNCH" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted; -fx-font-weight: 800;" />
+            </HBox>
+            <HBox spacing="12" alignment="CENTER_LEFT" fillHeight="true">
+                <!-- Card 1: Terminal -->
+                <VBox fx:id="cardTerminal" styleClass="quick-action-card, quick-card-terminal" spacing="10" HBox.hgrow="ALWAYS" onMouseClicked="#handleOpenTerminal">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <StackPane fx:id="iconTerminalCard" styleClass="action-card-icon-container" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS">
+                            <Label text="Terminal" styleClass="action-card-title" />
+                            <Label text="WARP BLOCKS" style="-fx-font-size: 9px; -fx-font-weight: 800; -fx-text-fill: -color-accent-gold; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </VBox>
+                        <Label text="Ctrl+1" styleClass="action-card-shortcut" minWidth="-Infinity" />
+                    </HBox>
+                    <Label text="Interactive block terminal with persistent shell sessions and AI explain." styleClass="action-card-desc" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 4px 0 0 0;">
+                        <Region style="-fx-pref-width: 6px; -fx-pref-height: 6px; -fx-background-radius: 3px; -fx-background-color: #fbbf24;" />
+                        <Label text="PTY Session" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                    </HBox>
+                </VBox>
+
+                <!-- Card 2: RepoGraph -->
+                <VBox fx:id="cardRepoGraph" styleClass="quick-action-card, quick-card-repo" spacing="10" HBox.hgrow="ALWAYS" onMouseClicked="#handleOpenRepoGraph">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <StackPane fx:id="iconRepoCard" styleClass="action-card-icon-container" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS">
+                            <Label text="RepoGraph" styleClass="action-card-title" />
+                            <Label text="GIT TOPOLOGY" style="-fx-font-size: 9px; -fx-font-weight: 800; -fx-text-fill: -color-accent-purple; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </VBox>
+                        <Label text="Ctrl+2" styleClass="action-card-shortcut" minWidth="-Infinity" />
+                    </HBox>
+                    <Label text="Visual repository tree, branch timeline diffs and git working tree status." styleClass="action-card-desc" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 4px 0 0 0;">
+                        <Region style="-fx-pref-width: 6px; -fx-pref-height: 6px; -fx-background-radius: 3px; -fx-background-color: #a855f7;" />
+                        <Label text="JGit Engine" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                    </HBox>
+                </VBox>
+
+                <!-- Card 3: API Studio -->
+                <VBox fx:id="cardApiStudio" styleClass="quick-action-card, quick-card-api" spacing="10" HBox.hgrow="ALWAYS" onMouseClicked="#handleOpenApiStudio">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <StackPane fx:id="iconApiCard" styleClass="action-card-icon-container" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS">
+                            <Label text="API Studio" styleClass="action-card-title" />
+                            <Label text="REST STUDIO" style="-fx-font-size: 9px; -fx-font-weight: 800; -fx-text-fill: -color-accent-emerald; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </VBox>
+                        <Label text="Ctrl+3" styleClass="action-card-shortcut" minWidth="-Infinity" />
+                    </HBox>
+                    <Label text="Draft, send, inspect and test REST endpoints, schemas and OpenAPI." styleClass="action-card-desc" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 4px 0 0 0;">
+                        <Region style="-fx-pref-width: 6px; -fx-pref-height: 6px; -fx-background-radius: 3px; -fx-background-color: #10b981;" />
+                        <Label text="HttpClient" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                    </HBox>
+                </VBox>
+
+                <!-- Card 4: Analytics -->
+                <VBox fx:id="cardAnalytics" styleClass="quick-action-card, quick-card-analytics" spacing="10" HBox.hgrow="ALWAYS" onMouseClicked="#handleOpenAnalytics">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <StackPane fx:id="iconAnalyticsCard" styleClass="action-card-icon-container" />
+                        <VBox spacing="2" HBox.hgrow="ALWAYS">
+                            <Label text="Analytics" styleClass="action-card-title" />
+                            <Label text="METRICS" style="-fx-font-size: 9px; -fx-font-weight: 800; -fx-text-fill: -color-accent-amber; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </VBox>
+                        <Label text="Ctrl+4" styleClass="action-card-shortcut" minWidth="-Infinity" />
+                    </HBox>
+                    <Label text="Command execution trends, duration analytics and real-time telemetry." styleClass="action-card-desc" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <HBox alignment="CENTER_LEFT" spacing="6" style="-fx-padding: 4px 0 0 0;">
+                        <Region style="-fx-pref-width: 6px; -fx-pref-height: 6px; -fx-background-radius: 3px; -fx-background-color: #f59e0b;" />
+                        <Label text="OSHI Engine" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-text-muted;" />
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Cockpit Telemetry & Recent Activity Split -->
+        <HBox spacing="20">
+            <!-- Left Card: Live System & Hardware Telemetry -->
+            <VBox styleClass="nexus-card" spacing="14" HBox.hgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label text="Live System Telemetry" styleClass="section-heading" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="● OSHI ENGINE" style="-fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #10b981;" />
+                </HBox>
+
+                <GridPane styleClass="project-overview-grid">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <!-- Tile 1: CPU -->
+                    <VBox styleClass="overview-stat-tile" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="CPU UTILIZATION" styleClass="overview-stat-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblCpuVal" text="0.0%" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #00d4ff; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </HBox>
+                        <ProgressBar fx:id="cpuProgressBar" progress="0.1" maxWidth="Infinity" styleClass="telemetry-progress-cyan" />
+                        <Label text="Multi-core balanced" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted;" />
+                    </VBox>
+
+                    <!-- Tile 2: RAM -->
+                    <VBox styleClass="overview-stat-tile" spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="SYSTEM MEMORY" styleClass="overview-stat-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblRamVal" text="0.0 / 0.0 GB" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #a855f7; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </HBox>
+                        <ProgressBar fx:id="ramProgressBar" progress="0.4" maxWidth="Infinity" styleClass="telemetry-progress-purple" />
+                        <Label text="DDR / Unified allocation" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted;" />
+                    </VBox>
+
+                    <!-- Tile 3: Disk -->
+                    <VBox styleClass="overview-stat-tile" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="STORAGE DISK" styleClass="overview-stat-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblDiskVal" text="0 GB Avail" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #10b981; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </HBox>
+                        <ProgressBar fx:id="diskProgressBar" progress="0.6" maxWidth="Infinity" styleClass="telemetry-progress-emerald" />
+                        <Label text="Host NVMe partition" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted;" />
+                    </VBox>
+
+                    <!-- Tile 4: Uptime -->
+                    <VBox styleClass="overview-stat-tile" spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="SYSTEM UPTIME" styleClass="overview-stat-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="lblUptimeVal" text="00h 00m" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #f59e0b; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </HBox>
+                        <Label text="HOST PROCESS LIFECYCLE" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #f59e0b;" />
+                        <Label text="OS session active" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted;" />
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <!-- Right Card: Recent Workspace Stream -->
+            <VBox styleClass="nexus-card" spacing="12" prefWidth="400" minWidth="360">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label text="Recent Workspace Activity" styleClass="section-heading" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="LIVE FEED" style="-fx-font-size: 9px; -fx-text-fill: -color-text-muted; -fx-font-weight: bold;" />
+                </HBox>
+
+                <VBox spacing="8" fx:id="recentActivityContainer" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

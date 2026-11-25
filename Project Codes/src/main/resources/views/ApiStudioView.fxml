@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nexus.controller.ApiStudioController"
+      styleClass="api-studio-container" VBox.vgrow="ALWAYS">
+
+    <!-- Top API Request Bar -->
+    <HBox styleClass="api-request-bar" spacing="10" alignment="CENTER_LEFT">
+        <ComboBox fx:id="methodCombo" prefWidth="110" styleClass="api-method-combo" />
+
+        <TextField fx:id="urlField" text="https://jsonplaceholder.typicode.com/posts/1" promptText="Enter or select API URL (e.g. https://jsonplaceholder.typicode.com/posts/1 or {{authUrl}}/api/auth/login)..."
+                   HBox.hgrow="ALWAYS" styleClass="api-url-field" onAction="#handleSendRequest" />
+
+        <!-- Environment Selector -->
+        <HBox alignment="CENTER_LEFT" spacing="6">
+            <Label text="Env:" style="-fx-text-fill: -color-text-secondary; -fx-font-size: 11px;" />
+            <ComboBox fx:id="envCombo" prefWidth="130" styleClass="btn-secondary" />
+            <Button fx:id="btnManageEnvs" text="⚙" styleClass="btn-icon" onAction="#handleManageEnvironments" />
+        </HBox>
+
+        <Button fx:id="btnSend" text="Send ⚡" styleClass="btn-primary" onAction="#handleSendRequest" />
+        <Button fx:id="btnSave" text="Save 💾" styleClass="btn-secondary" onAction="#handleSaveRequest" />
+    </HBox>
+
+    <!-- Quick Actions & Presets Bar -->
+    <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 6px 16px; -fx-background-color: -color-bg-sidebar; -fx-border-color: transparent transparent -color-border-subtle transparent; -fx-border-width: 0 0 1 0;">
+        <Label text="DEMO APIS:" style="-fx-font-size: 10px; -fx-font-weight: 800; -fx-text-fill: -color-accent-gold;" />
+
+        <ComboBox fx:id="demoApisCombo" promptText="⚡ Load Demo Fake API..." prefWidth="250" styleClass="btn-secondary" />
+
+        <ScrollPane fitToHeight="true" vbarPolicy="NEVER" hbarPolicy="AS_NEEDED" style="-fx-background-color: transparent; -fx-background: transparent; -fx-padding: 0;" HBox.hgrow="ALWAYS">
+            <HBox spacing="6" alignment="CENTER_LEFT">
+                <Button fx:id="chipJpPost" text="GET Post #1" styleClass="prompt-chip" onAction="#handlePresetJpPost" />
+                <Button fx:id="chipJpUsers" text="GET Users List" styleClass="prompt-chip" onAction="#handlePresetJpUsers" />
+                <Button fx:id="chipJpCreate" text="POST Create Post" styleClass="prompt-chip" onAction="#handlePresetJpCreate" />
+                <Button fx:id="chipDjProduct" text="GET Product (DummyJSON)" styleClass="prompt-chip" onAction="#handlePresetDjProduct" />
+                <Button fx:id="chipDjQuote" text="GET Random Quote" styleClass="prompt-chip" onAction="#handlePresetDjQuote" />
+                <Button fx:id="chipRrUsers" text="GET ReqRes Users" styleClass="prompt-chip" onAction="#handlePresetRrUsers" />
+                <Button fx:id="chipAuthSignup" text="POST Local Signup" styleClass="prompt-chip" onAction="#handlePresetSignup" />
+                <Button fx:id="chipAuthLogin" text="POST Local Login" styleClass="prompt-chip" onAction="#handlePresetLogin" />
+                <Button fx:id="chipAuthProfile" text="GET Protected Profile" styleClass="prompt-chip" onAction="#handlePresetProfile" />
+                <Button fx:id="chipPost" text="POST Echo httpbin" styleClass="prompt-chip" onAction="#handlePresetPost" />
+            </HBox>
+        </ScrollPane>
+
+        <Button fx:id="btnImportOpenApi" text="Import OpenAPI 📁" styleClass="btn-secondary-xs" onAction="#handleImportOpenApi" />
+    </HBox>
+
+    <!-- Main Workspace Split: Collections/History Sidebar (Left) vs Request/Response Workspace (Right) -->
+    <SplitPane dividerPositions="0.22" VBox.vgrow="ALWAYS" styleClass="split-pane">
+
+        <!-- LEFT SIDEBAR: Collections & Execution History -->
+        <VBox styleClass="repograph-tree-container" spacing="10">
+            <TabPane styleClass="api-tab-pane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+                <!-- Collections Tab -->
+                <Tab text="Collections">
+                    <VBox spacing="8" style="-fx-padding: 8px 4px;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="6">
+                            <Label text="COLLECTIONS" styleClass="section-heading-sm" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button text="⚡ Demos" styleClass="btn-secondary-xs" onAction="#handleResetDemos" />
+                            <Button text="+ Req" styleClass="btn-secondary-xs" onAction="#handleNewRequest" />
+                            <Button text="+ Col" styleClass="btn-secondary-xs" onAction="#handleNewCollection" />
+                        </HBox>
+
+                        <TreeView fx:id="collectionsTreeView" VBox.vgrow="ALWAYS" styleClass="tree-view" showRoot="false" />
+
+                        <HBox spacing="6">
+                            <Button text="Duplicate" styleClass="btn-secondary-xs" onAction="#handleDuplicateRequest" />
+                            <Button text="Delete" styleClass="btn-secondary-xs" onAction="#handleDeleteSelectedRequest" />
+                        </HBox>
+                    </VBox>
+                </Tab>
+
+                <!-- History Tab -->
+                <Tab text="History">
+                    <VBox spacing="8" style="-fx-padding: 8px 4px;" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="6">
+                            <Label text="RECENT RUNS" styleClass="section-heading-sm" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button text="Clear" styleClass="btn-secondary-xs" onAction="#handleClearHistory" />
+                        </HBox>
+
+                        <ListView fx:id="historyListView" VBox.vgrow="ALWAYS" styleClass="code-editor-area" />
+                    </VBox>
+                </Tab>
+
+            </TabPane>
+        </VBox>
+
+        <!-- RIGHT WORKSPACE: Request Editor (Top) & Response Viewer (Bottom) -->
+        <SplitPane orientation="VERTICAL" dividerPositions="0.48" VBox.vgrow="ALWAYS" styleClass="split-pane">
+
+            <!-- UPPER HALF: Request Configuration Tabs -->
+            <VBox style="-fx-background-color: -color-bg-base;">
+                <TabPane styleClass="api-tab-pane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+                    <!-- Tab 1: Request Body -->
+                    <Tab text="Body (JSON/Text)">
+                        <VBox spacing="8" style="-fx-padding: 10px 14px;" VBox.vgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="Request Payload (supports {{variables}})" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button text="Pretty Format JSON" styleClass="block-action-btn" onAction="#handleFormatBody" />
+                            </HBox>
+                            <TextArea fx:id="requestBodyArea" styleClass="code-editor-area" VBox.vgrow="ALWAYS" wrapText="false" style="-fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 2: Headers (Correctly implemented with inline editing & quick presets) -->
+                    <Tab text="Headers">
+                        <VBox spacing="8" style="-fx-padding: 10px 14px;" VBox.vgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <Label text="Request Headers" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted; -fx-font-weight: 800;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button text="+ JSON" styleClass="prompt-chip" onAction="#handleAddJsonHeader" />
+                                <Button text="+ Bearer Auth" styleClass="prompt-chip" onAction="#handleAddBearerHeader" />
+                                <Button text="+ Add Header" styleClass="btn-secondary-xs" onAction="#handleAddHeaderRow" />
+                            </HBox>
+                            <TableView fx:id="headersTable" VBox.vgrow="ALWAYS" styleClass="table-view" editable="true">
+                                <columns>
+                                    <TableColumn fx:id="headerKeyCol" text="Header Name" prefWidth="200" />
+                                    <TableColumn fx:id="headerValueCol" text="Header Value" prefWidth="280" />
+                                    <TableColumn fx:id="headerActionCol" text="" prefWidth="60" />
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 4: Authentication -->
+                    <Tab text="Auth">
+                        <VBox spacing="12" style="-fx-padding: 14px 18px;">
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <Label text="Auth Type:" style="-fx-text-fill: -color-text-secondary; -fx-font-size: 12px;" />
+                                <ComboBox fx:id="authTypeCombo" prefWidth="180" styleClass="btn-secondary" />
+                            </HBox>
+
+                            <!-- Bearer Token Box -->
+                            <VBox fx:id="boxBearerAuth" spacing="6">
+                                <Label text="Bearer Token (supports {{token}}):" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                                <PasswordField fx:id="authTokenField" text="{{token}}" promptText="Bearer token..." styleClass="terminal-input-field" maxWidth="450" />
+                                <Label text="Header added: Authorization: Bearer &lt;token&gt;" style="-fx-font-size: 10px; -fx-text-fill: -color-text-muted; -fx-font-style: italic;" />
+                            </VBox>
+
+                            <!-- Basic Auth Box -->
+                            <VBox fx:id="boxBasicAuth" spacing="8" visible="false" managed="false">
+                                <HBox spacing="10">
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Username:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                                        <TextField fx:id="authUsernameField" promptText="username" styleClass="terminal-input-field" />
+                                    </VBox>
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Password:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                                        <PasswordField fx:id="authPasswordField" promptText="password" styleClass="terminal-input-field" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+
+                            <!-- API Key Box -->
+                            <VBox fx:id="boxApiKeyAuth" spacing="8" visible="false" managed="false">
+                                <HBox spacing="10">
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Key Name:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                                        <TextField fx:id="apiKeyNameField" text="X-API-Key" styleClass="terminal-input-field" />
+                                    </VBox>
+                                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                        <Label text="Key Value:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                                        <PasswordField fx:id="apiKeyValueField" promptText="API Key..." styleClass="terminal-input-field" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 5: Tests & Assertions Config -->
+                    <Tab text="Assertions">
+                        <VBox spacing="8" style="-fx-padding: 10px 14px;" VBox.vgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <Label text="Response Validation Assertions" style="-fx-font-size: 11px; -fx-text-fill: -color-text-muted;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button text="+ Add Assertion" styleClass="btn-secondary-xs" onAction="#handleAddAssertionRow" />
+                            </HBox>
+                            <TableView fx:id="assertionsTable" VBox.vgrow="ALWAYS" styleClass="table-view" editable="true">
+                                <columns>
+                                    <TableColumn fx:id="assertionTypeCol" text="Type" prefWidth="170" />
+                                    <TableColumn fx:id="assertionPropCol" text="Property / JSON Path" prefWidth="180" />
+                                    <TableColumn fx:id="assertionExpectedCol" text="Expected Value" prefWidth="160" />
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </Tab>
+
+                </TabPane>
+            </VBox>
+
+            <!-- LOWER HALF: Response Viewer Panel -->
+            <VBox style="-fx-background-color: -color-bg-panel;">
+                <!-- Response Meta Status Bar -->
+                <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 8px 16px; -fx-border-color: transparent transparent -color-border-subtle transparent; -fx-border-width: 0 0 1 0; -fx-background-color: -color-bg-sidebar;">
+                    <Label text="RESPONSE:" style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: -color-text-muted;" />
+
+                    <Label fx:id="lblResponseStatus" text="Ready" style="-fx-background-color: rgba(56,189,248,0.15); -fx-text-fill: #38bdf8; -fx-font-weight: bold; -fx-padding: 3px 8px; -fx-background-radius: 4px; -fx-font-family: 'JetBrains Mono', Consolas, monospace;" />
+
+                    <HBox spacing="4" alignment="CENTER_LEFT">
+                        <Label text="Time:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                        <Label fx:id="lblResponseTime" text="0 ms" style="-fx-text-fill: -color-accent-cyan; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 11px;" />
+                    </HBox>
+
+                    <HBox spacing="4" alignment="CENTER_LEFT">
+                        <Label text="Size:" style="-fx-text-fill: -color-text-muted; -fx-font-size: 11px;" />
+                        <Label fx:id="lblResponseSize" text="0 B" style="-fx-text-fill: -color-text-secondary; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 11px;" />
+                    </HBox>
+
+                    <Label fx:id="lblAssertionSummary" text="" style="-fx-font-size: 11px; -fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-weight: bold;" />
+
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <Button fx:id="btnCopyResponse" text="Copy Body" styleClass="block-action-btn" onAction="#handleCopyResponse" />
+                    <Button fx:id="btnExplainApiAi" text="Explain with Nexus AI ⚡" styleClass="block-action-btn" style="-fx-text-fill: -color-accent-purple;" onAction="#handleExplainApiAi" />
+                </HBox>
+
+                <!-- Response Content Tabs -->
+                <TabPane styleClass="api-tab-pane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <!-- Tab 1: Pretty JSON / Body -->
+                    <Tab text="Pretty Body">
+                        <VBox style="-fx-padding: 8px 12px;" VBox.vgrow="ALWAYS">
+                            <TextArea fx:id="responseBodyArea" editable="false" styleClass="code-editor-area" VBox.vgrow="ALWAYS" wrapText="false" style="-fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 11px;" />
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 2: Response Headers -->
+                    <Tab text="Headers">
+                        <VBox style="-fx-padding: 8px 12px;" VBox.vgrow="ALWAYS">
+                            <ListView fx:id="responseHeadersList" styleClass="code-editor-area" VBox.vgrow="ALWAYS" />
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 3: Test Results / Assertions -->
+                    <Tab text="Test Results">
+                        <VBox spacing="8" style="-fx-padding: 10px 14px;" VBox.vgrow="ALWAYS">
+                            <Label text="ASSERTION RESULTS" styleClass="section-heading-sm" />
+                            <ListView fx:id="assertionResultsList" VBox.vgrow="ALWAYS" styleClass="code-editor-area" />
+                        </VBox>
+                    </Tab>
+
+                    <!-- Tab 4: Raw Response -->
+                    <Tab text="Raw">
+                        <VBox style="-fx-padding: 8px 12px;" VBox.vgrow="ALWAYS">
+                            <TextArea fx:id="rawResponseArea" editable="false" styleClass="code-editor-area" VBox.vgrow="ALWAYS" wrapText="false" style="-fx-font-family: 'JetBrains Mono', Consolas, monospace; -fx-font-size: 11px;" />
+                        </VBox>
+                    </Tab>
+                </TabPane>
+            </VBox>
+
+        </SplitPane>
+
+    </SplitPane>
+
+</VBox>
